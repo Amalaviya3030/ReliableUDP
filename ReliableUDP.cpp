@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-#include <Net.h>
+#include "Net.h"
 
 //#define SHOW_ACKS
 
@@ -22,7 +22,7 @@ const int ProtocolId = 0x11223344;
 const float DeltaTime = 1.0f / 30.0f;
 const float SendRate = 1.0f / 30.0f;
 const float TimeOut = 10.0f;
-const int PacketSize = 256;
+const int PacketSize = 384;
 
 class FlowControl
 {
@@ -132,6 +132,7 @@ int main(int argc, char* argv[])
 	if (argc >= 2)
 	{
 		int a, b, c, d;
+#pragma warning(suppress : 4996) 
 		if (sscanf(argv[1], "%d.%d.%d.%d", &a, &b, &c, &d))
 		{
 			mode = Client;
