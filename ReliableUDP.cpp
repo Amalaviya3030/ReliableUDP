@@ -128,7 +128,7 @@ int main(int argc, char* argv[])
 
 	Mode mode = Server;
 	Address address;
-
+// this is the place where changes are needed to get another argument
 	if (argc >= 2)
 	{
 		int a, b, c, d;
