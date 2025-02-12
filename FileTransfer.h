@@ -7,7 +7,7 @@
 
 class FileHandler {
 public:
-    // Loads a file from disk into a buffer
+    // Loads a file from disk into a buffer from the aryan 
     static bool LoadFile(const std::string& filePath, std::vector<unsigned char>& buffer);
 
     // Saves a buffer to disk as a file
