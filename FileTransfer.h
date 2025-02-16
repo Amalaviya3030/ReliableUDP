@@ -22,7 +22,7 @@ const uint8_t TYPE_DATA = 2;
 
 #define SIZE_PAYLOAD   (SIZE_OF_PACKET - sizeof(uint8_t) - sizeof(uint64_t)) 
 
-typedef struct Packet 
+typedef struct MetaPacket 
 {
     uint8_t   typeofpacket; 
     char      filename[MAX_LENTH_OF_FILENAME]; 
@@ -30,6 +30,35 @@ typedef struct Packet
     uint64_t  totalBlocks; 
     uint8_t   md5[LENTH_OF_HASH]; 
     uint8_t   padding[PADDING_SIZE]; 
-} Packet;
+} MetaPacket;
+
+#pragma pack(push, 1) 
+struct BlockPacktOfFile 
+{
+    uint8_t   packetType; 
+    uint64_t  localSequence; 
+    char      payLoad[SIZE_PAYLOAD]; 
+};
+#pragma pack(pop)
+
+class FileTransfer
+{
+private:
+    int Complete = -1;                
+    MetaPacket metaPacket;          
+    vector<BlockPacktOfFile> blocks;      
+    vector<uint8_t> fileData;        
+
+public:
+    vector<BlockPacktOfFile> BlocksRecieved(void);
+    int LoadFileData(const char* filename);
+    const MetaPacket& GetMetaPacket(void);
+    int ReceivedFilePacket(const unsigned char* packet, size_t packetSize);
+    bool FileVerification();
+    int ReceivedFileData();
+    int SaveFileData() const;
+    
+};
 
 #endif // _FILETRANSFER_H_
+
